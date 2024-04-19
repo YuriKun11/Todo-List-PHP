@@ -17,37 +17,18 @@ Before you begin, ensure you have the following:
 - Table name: tasks
 - Number of columns: 2
 
-### Step 2: Create an index.php and create a form
-
-- Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
-
-### Step 3: Connect to the database
-
-- Connect to the MySQL database named "todo".
-
-### Step 4: Insert the data entered by the user
-
-- Handle form submission to insert tasks into the database.
-
-### Step 5: Create a table
-
-- Display tasks from the database in a table format.
-
-### Step 6: Delete data from the database
-
-- Handle deletion of tasks from the database.
-
-### See the codes below
-
-Step 1 : 
 ```sql
 CREATE TABLE tasks (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     task VARCHAR(255)
 );
 ```
-Step 2: 
-```
+
+### Step 2: Create an index.php and create a form
+
+- Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
+
+  ```
 <form method="post" action="index.php">
     <!-- Display errors if any -->
     <?php if(isset($errors)){ ?>
@@ -61,13 +42,20 @@ Step 2:
     <button type="submit" class="task_btn" name="submit">Add Task</button>
 </form>
 ```
-Step 3:
+
+### Step 3: Connect to the database
+
+- Connect to the MySQL database named "todo".
+
 ```
 $db = mysqli_connect('localhost', 'root', '', 'todo');
 ```
-Step 4:
 
-if(isset($_POST['submit'])){
+### Step 4: Insert the data entered by the user
+
+- Handle form submission to insert tasks into the database.
+```
+  if(isset($_POST['submit'])){
     // Get task from form
     $task = $_POST['task'];
 
@@ -81,8 +69,8 @@ if(isset($_POST['submit'])){
     }
 }
 ```
-```
-Step 5:
+
+### Step 5: Create a table
 ```
 <table>
     <thead>
@@ -107,4 +95,19 @@ Step 5:
 </table>
 ```
 
+
+- Display tasks from the database in a table format.
+
+### Step 6: Delete data from the database
+
+- Handle deletion of tasks from the database.
+
+```
+if(isset($_GET['del_task'])){
+    $id = $_GET['del_task'];
+    mysqli_query($db, "DELETE FROM tasks WHERE id =$id");
+    header('location: index.php');
+}
+
+```
 
