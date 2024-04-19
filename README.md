@@ -26,7 +26,7 @@ CREATE TABLE tasks (
 
 ### Step 2: Create an index.php and create a form
 
-- Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
+Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
 
   ```
 <form method="post" action="index.php">
@@ -41,6 +41,7 @@ CREATE TABLE tasks (
     <!-- Submit button -->
     <button type="submit" class="task_btn" name="submit">Add Task</button>
 </form>
+
 ```
 
 ### Step 3: Connect to the database
@@ -48,13 +49,17 @@ CREATE TABLE tasks (
 - Connect to the MySQL database named "todo".
 
 ```
+
 $db = mysqli_connect('localhost', 'root', '', 'todo');
+
 ```
+
 
 ### Step 4: Insert the data entered by the user
 
 - Handle form submission to insert tasks into the database.
 ```
+
   if(isset($_POST['submit'])){
     // Get task from form
     $task = $_POST['task'];
@@ -68,10 +73,20 @@ $db = mysqli_connect('localhost', 'root', '', 'todo');
         header('location: index.php');
     }
 }
+
 ```
 
 ### Step 5: Create a table
+
+- Display tasks from the database in a table format.
+
 ```
+$tasks = mysqli_query($db, "SELECT * FROM tasks");
+
+```
+
+```
+
 <table>
     <thead>
         <tr>
@@ -93,10 +108,9 @@ $db = mysqli_connect('localhost', 'root', '', 'todo');
         <?php $i++;  } ?>
     </tbody>
 </table>
+
 ```
 
-
-- Display tasks from the database in a table format.
 
 ### Step 6: Delete data from the database
 
