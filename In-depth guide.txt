@@ -1,0 +1,174 @@
+# Step 1: Create a new database
+## - avoid using uppercase letter
+
+Database name: todo
+Table name: tasks
+Number of columns: 2
+
+id INT 11 AI(Auto Increment)
+task VARCHAR 255
+
+## - Click save
+
+#Step 2: Create an index.php and create a form 
+##I will break down the codes, read it carefully
+
+	- We use the POST method to send data to a server to create/update a resource
+	<form method= "post" action="index.php">
+
+	- We use isset() function to check whether a variable is empty
+	<?php if(isset($errors){//codes to be followed})?>
+
+	- Inside the if statement, we use another php tag, so that we can display / echo the error message
+	<p><?php echo $errors; ?></p>
+	
+	- An input where we can type something
+	 <input autocomplete="off" type="text" name="task" class="task-input">
+	
+	-Finally, a button which submits the data entered on the input
+	 <button type="submit" class = "task_btn" name="submit">Add Task</button>
+
+##This is the whole code
+ <form method = "post" action="index.php">
+        <?php if(isset($errors)){ ?>
+            <p><?php echo $errors; ?></p>
+        <?php }  ?>
+        <input autocomplete="off" type="text" name="task" class="task-input">
+        <button type="submit" class = "task_btn" name="submit">Add Task</button>
+  </form>
+
+
+#Step 3: Connect to the database
+	- We use this format to connect to our database name: todo
+	$db = mysqli_connect('localhost', "root", "", "todo");
+	
+
+
+#Step 4: Insert the data entered by the user
+	- We use isset() function to check whether a variable is empty
+	if(isset($_POST['submit'])){
+		//Codes here
+	}
+	- create a php variable to store the value of input from Step 2
+	 $task = $_POST['task'];
+	
+	- Now, if else the $task you've just created. If task empty, $errors = "Fill the task"
+	if(empty($task)){
+        $errors = "You must fill in the task";}
+
+	- else, insert the data because it is not empty
+	else{
+        mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')");
+        header('location: index.php');
+    	}
+	
+
+#Step 5: Create a table
+##This is the structure of the table
+	- <table>
+	- 	<thead>
+	- 		<tr>
+	- 			<th><th><th> //This is the header of the table(id, task, action)
+	- 		<tr>
+	- 	</thead>
+	- 	<tbody> <tr> 
+				<th><th><th> //This is where we display the id, user input, and Delete Button
+			</tr>
+	-	</tbody>
+	- </table>
+
+##Breakdown of the code
+	
+	- First, Perform query against a database, which allows us to select the id
+	- Code this inside main php tag
+	$tasks = mysqli_query($db, "SELECT * FROM tasks");
+
+	
+	- Code this inside the tbody tag
+	<?php $i =1; while($row = mysqli_fetch_array($tasks)){ ?> 
+	
+	//codes to be followed, this is where we put tr and td
+
+	 <?php $i++ } ?>
+	
+	- We create a tr and td tag and we will use php tags inside td tags
+	- Don't get confuse, we are just putting php tags inside td tags so that we can display the data using echo
+	<tr><td> <?php?> </td> <td> <?php?> </td> <td> <?php?> </td></tr>
+
+	- first td tag : to display id number
+	<?php echo $i; ?>
+
+	- second td tag : to display data from task
+	<?php echo $row['task']; ?>
+
+	- third td tag : to delete the data
+	<a href="index.php?del_task=<?php echo $row['id'];?>">x</a>
+
+##This is the whole code
+ <table>
+        <thead>
+            <tr>
+                <th>N</th>
+                <th>Task</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php $i = 1; while ($row = mysqli_fetch_array($tasks)){ ?>
+             <tr>
+                <td><?php echo $i; ?></td>
+                <td class= "task"><?php echo $row['task']; ?></td>
+                <td class= "delete">
+                    <a href="index.php?del_task=<?php echo $row['id'];?>">x</a>
+                </td>
+            </tr>
+         <?php $i++;  } ?>
+
+           
+        </tbody>
+    </table>
+
+
+
+#Step 6: Delete the data from database
+	- Again, we use isset() function to check whether a variable is empty
+	- But this time, it returns a TRUE value if variable is not NULL
+
+	if(isset($_GET['del_task'])){
+		//code here
+		
+	}
+
+	- create a variable $id
+	$id = $_GET['del_task'];
+	
+	- Perform query against a database to delete a task with id
+	 mysqli_query($db, "DELETE FROM tasks WHERE id =$id");
+
+	- Lastly, add this code
+	header('location: index.php');
+
+##This is the whole code
+
+if(isset($_GET['del_task'])){
+    $id = $_GET['del_task'];
+    mysqli_query($db, "DELETE FROM tasks WHERE id =$id");
+    header('location: index.php');
+
+}
+$tasks = mysqli_query($db, "SELECT * FROM tasks");
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
