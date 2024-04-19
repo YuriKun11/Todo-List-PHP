@@ -23,9 +23,11 @@ CREATE TABLE tasks (
     task VARCHAR(255)
 );
 
-Step 2: Create an index.php and create a form
+### Step 2: Create an index.php and create a form
+
 Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
 
+```html
 <form method="post" action="index.php">
     <!-- Display errors if any -->
     <?php if(isset($errors)){ ?>
@@ -38,6 +40,7 @@ Create an HTML form to add tasks. The form should submit data using the POST met
     <!-- Submit button -->
     <button type="submit" class="task_btn" name="submit">Add Task</button>
 </form>
+
 
 
 Step 3: Connect to the database
