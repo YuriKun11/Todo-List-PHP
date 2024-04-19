@@ -22,3 +22,6 @@ CREATE TABLE tasks (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     task VARCHAR(255)
 );
+
+###Step 2: Create an index.php and create a form
+Create an HTML form to add tasks. The form should submit data using the POST method to the index.php file.
