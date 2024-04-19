@@ -17,7 +17,7 @@ task VARCHAR 255
 	<form method= "post" action="index.php">
 
 	- We use isset() function to check whether a variable is empty
-	<?php if(isset($errors){//codes to be followed})?>
+	 <?php if(isset($errors)){ ?> // Codes here <?php }  ?>
 
 	- Inside the if statement, we use another php tag, so that we can display / echo the error message
 	<p><?php echo $errors; ?></p>
