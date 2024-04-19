@@ -40,7 +40,7 @@ Before you begin, ensure you have the following:
 ### See the codes below
 
 Step 1 : 
-
+```sql
 CREATE TABLE tasks (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     task VARCHAR(255)
@@ -48,6 +48,7 @@ CREATE TABLE tasks (
 
 Step 2: 
 
+```html
 <form method="post" action="index.php">
     <!-- Display errors if any -->
     <?php if(isset($errors)){ ?>
@@ -62,9 +63,11 @@ Step 2:
 </form>
 
 Step 3:
+```sql
 $db = mysqli_connect('localhost', 'root', '', 'todo');
 
 Step 4:
+```php
 if(isset($_POST['submit'])){
     // Get task from form
     $task = $_POST['task'];
@@ -80,7 +83,7 @@ if(isset($_POST['submit'])){
 }
 
 Step 5:
-
+```html
 <table>
     <thead>
         <tr>
