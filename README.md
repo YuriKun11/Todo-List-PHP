@@ -37,4 +37,71 @@ Before you begin, ensure you have the following:
 
 - Handle deletion of tasks from the database.
 
+### See the codes below
+
+Step 1 : 
+
+CREATE TABLE tasks (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    task VARCHAR(255)
+);
+
+Step 2: 
+
+<form method="post" action="index.php">
+    <!-- Display errors if any -->
+    <?php if(isset($errors)){ ?>
+        <p><?php echo $errors; ?></p>
+    <?php } ?>
+
+    <!-- Input field for task -->
+    <input autocomplete="off" type="text" name="task" class="task-input">
+    
+    <!-- Submit button -->
+    <button type="submit" class="task_btn" name="submit">Add Task</button>
+</form>
+
+Step 3:
+$db = mysqli_connect('localhost', 'root', '', 'todo');
+
+Step 4:
+if(isset($_POST['submit'])){
+    // Get task from form
+    $task = $_POST['task'];
+
+    // Validate task
+    if(empty($task)){
+        $errors = "You must fill in the task";
+    } else {
+        // Insert task into database
+        mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')");
+        header('location: index.php');
+    }
+}
+
+Step 5:
+
+<table>
+    <thead>
+        <tr>
+            <th>N</th>
+            <th>Task</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $i = 1; while ($row = mysqli_fetch_array($tasks)){ ?>
+            <tr>
+                <td><?php echo $i; ?></td>
+                <td class="task"><?php echo $row['task']; ?></td>
+                <td class="delete">
+                    <!-- Delete button -->
+                    <a href="index.php?del_task=<?php echo $row['id'];?>">x</a>
+                </td>
+            </tr>
+        <?php $i++;  } ?>
+    </tbody>
+</table>
+
+
 
